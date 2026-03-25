@@ -18,60 +18,63 @@ different files were created for fetching data from different APIs
 ## Key Decisons 
 
 - State Management – Riverpod
-    -Used StateNotifierProvider for complex state (news feed, favorites) to encapsulate logic.
-    -FutureProvider for simple async operations (like fetching categories).
-    -Provides clean dependency injection and reactivity across widgets.
+
+        Used StateNotifierProvider for complex state like news feed, favorites to encapsulate logic.
+        FutureProvider for simple async operations like fetching categories.
+        Provides clean dependency injection and reactivity across widgets.
 
 - Local Storage – Hive
-    -Lightweight, NoSQL solution with type-safe adapters.
-    -Stores user session for offline access.
-    -Articles stored with URL as key to prevent duplicates.
+
+        Lightweight, NoSQL solution with type-safe adapters.
+        Stores user session for offline access.
+        Articles stored with URL as key to prevent duplicates.
 
 -Separation of Concerns
 
-    -Models: Plain Dart classes for data (Article, User).
-    -Services: API calls (NewsService) and Hive operations (FavoritesService, AuthService).
-    -Providers: Bridge between services and UI, managing state and business logic.
-    -Screens & Widgets: UI only, observing providers.
-    -Ensures maintainability and testability.
+    Models: Plain Dart classes for data Article, User.
+    Services: API calls (NewsService) and Hive operations (FavoritesService, AuthService).
+    Providers: Bridge between services and UI, managing state and business logic.
+    Screens & Widgets: UI only, observing providers.
+    Ensures maintainability and testability.
 
 -Pagination & Pull-to-Refresh
 
-    -NewsNotifier tracks page, loading state, and hasMore flag.
-    -Infinite scroll via ScrollController listener triggering loadMore().
-    -RefreshIndicator triggers refresh() to reset page and reload data.
+    NewsNotifier tracks page, loading state, and hasMore flag.
+    Infinite scroll via ScrollController listener triggering loadMore().
+    RefreshIndicator triggers refresh() to reset page and reload data.
 
 - Category Filtering
 
-    -Horizontal ChoiceChip list built from NewsService.categories.
-    -Selecting a category calls setCategory() which resets state and loads new data.
+        Horizontal ChoiceChip list built from NewsService.categories.
+        Selecting a category calls setCategory() which resets state and loads new data.
 
 - Favorites Management
 
-    -Dedicated FavoritesService and FavoritesNotifier for CRUD operations.
-    -Favorite status checked on article detail screen using isFavorite() method.
-    -Favorites screen shows all saved articles, with real-time updates.
-    -Full Article View – No WebView
-    -Used flutter_html to render article content (if available) from API.
-    -Provides "Open in Browser" button that launches external browser via    url_launcher.
-    -Simplifies development, avoids WebView complexities, and reduces app size.
+        Dedicated FavoritesService and FavoritesNotifier for CRUD operations.
+        Favorite status checked on article detail screen using isFavorite() method.
+        Favorites screen shows all saved articles, with real-time updates.
+        Full Article View – No WebView
+        Used flutter_html to render article content (if available) from API.
+        Provides "Open in Browser" button that launches external browser via    url_launcher.
+        Simplifies development, avoids WebView complexities, and reduces app size.
 
 - Persistent Login State
-    -User object stored in Hive; AuthNotifier loads user on app start.
-    -ConsumerWidget in MyApp listens to authProvider to decide initial route.
-    -Logout clears Hive and updates state, triggering navigation to login.
+
+        User object stored in Hive; AuthNotifier loads user on app start.
+        ConsumerWidget in MyApp listens to authProvider to decide initial route.
+        Logout clears Hive and updates state, triggering navigation to login.
 
 Error Handling & User Feedback
 
-    -Try-catch blocks in services; errors propagated to providers.
-    -UI shows error messages with retry button for initial loads.
-    -Loading states (isLoading, isLoadingMore) provide visual feedback.
+    Try-catch blocks in services; errors propagated to providers.
+    UI shows error messages with retry button for initial loads.
+    Loading states (isLoading, isLoadingMore) provide visual feedback.
 
 Scalability & Extensibility
 
-    -Modular folders (models, services, providers, screens, widgets).
-    -Adding new features (e.g., search, dark mode) requires minimal changes.
-    -Easy to replace services (e.g., API provider) without affecting UI.
+        Modular folders like models, services, providers, screens, widgets.
+        Adding new features (e.g., search, dark mode) requires minimal changes.
+        Easy to replace services (e.g., API provider) without affecting UI.
 
 
 
