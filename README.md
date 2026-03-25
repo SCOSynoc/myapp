@@ -2,15 +2,18 @@
 
 A new Flutter project.
 
-## Getting Started
+## Folder structure explanation 
 
-This project is a starting point for a Flutter application.
+- core folder will contains constants and utility functions 
+- models folder will contain data models for fetching data from an api 
+- presentation layer contains all UI screens
+  - In presentation layer sub-folders are created based on features 
+  - Also in widget folder there are reusable widgets for an app 
+- Providers folder contains all features providers which manage app's features states effectively 
+- service folders contains functionality related to fetching data from an api 
+different files were created for fetching data from different APIs 
 
-A few resources to get you started if this is your first Flutter project:
+- This folder structure keeps architecture clean and scalable and allows modification in an application without affecting UI.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
